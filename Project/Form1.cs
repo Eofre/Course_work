@@ -38,7 +38,8 @@ namespace Project
 
         private void picDisplay_Click(object sender, EventArgs e)
         {
-            emitter.impactPoints.Add(new CounterPoint { X = picDisplay.Width / 2 + random.Next(-250, 250), Y = picDisplay.Height / 2 + random.Next(-250, 250) }); 
+            emitter.impactPoints.Add(new CounterPoint { X = emitter.MousePositionX, Y = emitter.MousePositionY});
+           
         }
         
         

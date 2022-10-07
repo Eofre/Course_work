@@ -9,20 +9,40 @@ namespace Project
 {
     public class CounterPoint : IImpactPoint
     {
-        public int Radius = 100; // радиус
-        public int Count = 0; // сам счётчик
+        public int Radius = 100; 
+        public int Count = 0; 
         public override void ImpactParticle(Particle particle)
         {
             float gX = X - particle.X;
             float gY = Y - particle.Y;
-            double r = Math.Sqrt(gX * gX + gY * gY); // считаем расстояние от центра точки до центра частицы
+            double r = Math.Sqrt(gX * gX + gY * gY); 
             var p = (particle as ParticleColorful);
-            if (r + particle.Radius < Radius / 2) // если частица оказалось внутри окружности
+            if (r + particle.Radius < Radius / 2) 
             {
-                p.Radius = 0; // чтобы частица не мешалась еще сколько то тиков при смерти, делаю радиус 0
-                p.Life = 0; // а частица умерла туть(
-                Count++; // а счётчик прибавился туть)
+                p.Life = 0; 
+                Count++; 
             }
+        }
+        public override void Render(Graphics g)
+        {
+            g.DrawEllipse(
+                   new Pen(Color.White),
+                   X - Radius / 2,
+                   Y - Radius / 2,
+                   Radius,
+                   Radius
+               );
+            var stringFormat = new StringFormat(); // создаем экземпляр класса
+            stringFormat.Alignment = StringAlignment.Center; // выравнивание по горизонтали
+            stringFormat.LineAlignment = StringAlignment.Center;
+            g.DrawString(
+            $"{Count}", // надпись, можно перенос строки вставлять (если вы Катя, то может не работать и надо использовать \r\n)
+            new Font("Verdana", 10), // шрифт и его размер
+            new SolidBrush(Color.White), // цвет шрифта
+            X, // расположение в пространстве
+            Y,
+            stringFormat
+        );
         }
     }
 }
