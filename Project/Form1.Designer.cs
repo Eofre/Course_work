@@ -61,6 +61,7 @@ namespace Project
             // 
             // tdDirection
             // 
+            this.tdDirection.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tdDirection.Location = new System.Drawing.Point(12, 577);
             this.tdDirection.Maximum = 359;
             this.tdDirection.Name = "tdDirection";
@@ -87,6 +88,8 @@ namespace Project
             // 
             // tbSpreading
             // 
+            this.tbSpreading.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tbSpreading.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbSpreading.Location = new System.Drawing.Point(454, 578);
             this.tbSpreading.Maximum = 359;
             this.tbSpreading.Name = "tbSpreading";
