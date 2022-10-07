@@ -14,6 +14,7 @@ namespace Project
     {
         List<Emitter> emitters = new List<Emitter>();
         Emitter emitter;
+        public static Random random = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -37,7 +38,7 @@ namespace Project
 
         private void picDisplay_Click(object sender, EventArgs e)
         {
-
+            emitter.impactPoints.Add(new CounterPoint { X = picDisplay.Width / 2 + random.Next(-250, 250), Y = picDisplay.Height / 2 + random.Next(-250, 250) }); 
         }
         
         
