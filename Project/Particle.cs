@@ -31,14 +31,17 @@ namespace Project
 
         public void Draw(Graphics g)
         {
-            // создали кисть для рисования
-            var b = new SolidBrush(Color.Black);
+            
+            float k = Math.Min(1f, Life / 100);
+            
+            int alpha = (int)(k * 255);
 
-            // нарисовали залитый кружок радиусом Radius с центром в X, Y
+            var color = Color.FromArgb(alpha, Color.Black);
+            var b = new SolidBrush(color);
+
+            
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 
-            // удалили кисть из памяти, вообще сборщик мусора рано или поздно это сам сделает
-            // но документация рекомендует делать это самому
             b.Dispose();
         }
 
