@@ -68,5 +68,11 @@ namespace Project
             emitter.Direction = tdDirection.Value;
             lblDirection.Text = $"{tdDirection.Value}°";
         }
+
+        private void tbSpreading_Scroll(object sender, EventArgs e)
+        {
+            emitter.Spreading = tbSpreading.Value;
+            lblSpreading.Text = $"{tbSpreading.Value}°";
+        }
     }
 }
