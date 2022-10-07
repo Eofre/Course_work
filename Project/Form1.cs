@@ -48,16 +48,20 @@ namespace Project
             }
             for (var i = 0; i < 10; ++i)
             {
-                if (particles.Count < 500) // пока частиц меньше 500 генерируем новые
+                if (particles.Count < 500)
                 {
-                    var particle = new Particle();
+                    
+                    var particle = new ParticleColorful();
+                   
+                    particle.FromColor = Color.Yellow;
+                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
                     particle.X = MousePositionX;
                     particle.Y = MousePositionY;
                     particles.Add(particle);
                 }
                 else
                 {
-                    break; // а если частиц уже 500 штук, то ничего не генерирую
+                    break;
                 }
             }
         }
@@ -74,13 +78,14 @@ namespace Project
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateState(); // каждый тик обновляем систему
+            UpdateState();
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.White);
-                Render(g); // рендерим систему
+                g.Clear(Color.Black); 
+                Render(g);
             }
+
             picDisplay.Invalidate();
 
         }

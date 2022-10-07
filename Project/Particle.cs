@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    class Particle
+    public class Particle
     {
         public int Radius; // радиус частицы
         public float X; // X координата положения частицы в пространстве
@@ -29,7 +29,7 @@ namespace Project
             Life = 20 + rand.Next(100);
         }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             
             float k = Math.Min(1f, Life / 100);
