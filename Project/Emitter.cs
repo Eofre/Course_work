@@ -14,7 +14,7 @@ namespace Project
         public int MousePositionY;
         public float GravitationX = 0;
         public float GravitationY = 0;
-        public List<Point> gravityPoints = new List<Point>();
+        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
         public void UpdateState()
         {
             foreach (var particle in particles)
@@ -36,15 +36,9 @@ namespace Project
                 }
                 else
                 {
-                    foreach (var point in gravityPoints)
+                    foreach (var point in impactPoints)
                     {
-                        float gX = point.X - particle.X;
-                        float gY = point.Y - particle.Y;
-                        float r2 = (float)Math.Max(100, gX * gX + gY * gY);
-                        float M = 100;
-
-                        particle.SpeedX += (gX) * M / r2;
-                        particle.SpeedY += (gY) * M / r2;
+                        point.ImpactParticle(particle);
                     }
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
@@ -78,15 +72,9 @@ namespace Project
             {
                 particle.Draw(g);
             }
-            foreach (var point in gravityPoints)
+            foreach (var point in impactPoints)
             {
-                g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    point.X - 5,
-                    point.Y - 5,
-                    10,
-                    10
-                );
+                point.Render(g);
             }
         }
     }
