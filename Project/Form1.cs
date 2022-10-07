@@ -12,7 +12,6 @@ namespace Project
 {
     public partial class Form1 : Form
     {
-        List<Particle> particles = new List<Particle>();
         Emitter emitter = new Emitter();
         public Form1()
         {

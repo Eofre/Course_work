@@ -12,6 +12,8 @@ namespace Project
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
+        public float GravitationX = 0;
+        public float GravitationY = 1;
 
         public void UpdateState()
         {
@@ -34,6 +36,8 @@ namespace Project
                 }
                 else
                 {
+                    particle.SpeedX += GravitationX;
+                    particle.SpeedY += GravitationY;
 
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
