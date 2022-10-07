@@ -12,29 +12,27 @@ namespace Project
 {
     public partial class Form1 : Form
     {
-        Emitter emitter = new Emitter();
+        List<Emitter> emitters = new List<Emitter>();
+        Emitter emitter;
         public Form1()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            emitter.impactPoints.Add(new GravityPoint
+            this.emitter = new Emitter 
             {
-                X = (float)(picDisplay.Width * 0.25),
-                Y = picDisplay.Height / 2
-            });
-
-            emitter.impactPoints.Add(new AntiGravityPoint
-            {
+                Direction = 0,
+                Spreading = 10,
+                SpeedMin = 10,
+                SpeedMax = 10,
+                ColorFrom = Color.Gold,
+                ColorTo = Color.FromArgb(0, Color.Red),
+                ParticlesPerTick = 10,
                 X = picDisplay.Width / 2,
-                Y = picDisplay.Height / 2
-            });
+                Y = picDisplay.Height / 2,
+            };
 
-            emitter.impactPoints.Add(new GravityPoint
-            {
-                X = (float)(picDisplay.Width * 0.75),
-                Y = picDisplay.Height / 2
-            });
+            emitters.Add(this.emitter);
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
@@ -61,6 +59,12 @@ namespace Project
         {
             emitter.MousePositionX = e.X;
             emitter.MousePositionY = e.Y;
+        }
+
+        private void tdDirection_Scroll(object sender, EventArgs e)
+        {
+            emitter.Direction = tdDirection.Value;
+            lblDirection.Text = $"{tdDirection.Value}°";
         }
     }
 }

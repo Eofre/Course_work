@@ -15,6 +15,8 @@ namespace Project
         public float GravitationX = 0;
         public float GravitationY = 0;
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
+        public int ParticlesCount = 500;
+
         public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
         public int Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
@@ -24,7 +26,8 @@ namespace Project
         public int RadiusMin = 2; // минимальный радиус частицы
         public int RadiusMax = 10; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
-        public int LifeMax = 100; 
+        public int LifeMax = 100;
+        public int ParticlesPerTick = 1;
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
@@ -56,22 +59,19 @@ namespace Project
         }
         public void UpdateState()
         {
+            int particlesToCreate = ParticlesPerTick;
             foreach (var particle in particles)
             {
-                particle.Life -= 1;
-                if (particle.Life < 0)
+                particle.Life--;
+                if (particle.Life <= 0)
                 {
-                    particle.Life = 20 + Particle.rand.Next(100);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
+                    ResetParticle(particle);
 
-                    var direction = (double)Particle.rand.Next(360);
-                    var speed = 1 + Particle.rand.Next(10);
-
-                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-                    particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
-                    particle.Radius = 2 + Particle.rand.Next(10);
+                    if (particlesToCreate > 0)
+                    {
+                        particlesToCreate -= 1;
+                        ResetParticle(particle);
+                    }
                 }
                 else
                 {
@@ -85,18 +85,12 @@ namespace Project
                     particle.Y += particle.SpeedY;
                 }
             }
-            for (var i = 0; i < 10; ++i)
+            while (particlesToCreate >= 1)
             {
-                if (particles.Count < 500)
-                {
-                    var particle = CreateParticle();
-                    ResetParticle(particle);
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break;
-                }
+                particlesToCreate -= 1;
+                var particle = CreateParticle();
+                ResetParticle(particle);
+                particles.Add(particle);
             }
         }
 
