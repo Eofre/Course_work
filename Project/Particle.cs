@@ -9,12 +9,12 @@ namespace Project
 {
     public class Particle
     {
-        public int Radius; // радиус частицы
-        public float X; // X координата положения частицы в пространстве
-        public float Y; // Y координата положения частицы в пространстве
+        public int Radius; 
+        public float X; 
+        public float Y; 
 
-        public float Direction; // направление движения
-        public float Speed; // скорость перемещения
+        public float SpeedX; 
+        public float SpeedY;
         public float Life;
 
         public static Random rand = new Random();
@@ -22,9 +22,12 @@ namespace Project
        
         public Particle()
         {
+            var direction = (double)rand.Next(360);
+            var speed = 1 + rand.Next(10);
 
-            Direction = rand.Next(360);
-            Speed = 1 + rand.Next(10);
+            SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+            SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+
             Radius = 2 + rand.Next(10);
             Life = 20 + rand.Next(100);
         }
