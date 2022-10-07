@@ -17,14 +17,6 @@ namespace Project
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
-            for (var i = 0; i < 500; ++i)
-            {
-                var particle = new Particle();
-                particle.X = picDisplay.Image.Width / 2;
-                particle.Y = picDisplay.Image.Height / 2;
-                particles.Add(particle);
-            }
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
@@ -35,8 +27,7 @@ namespace Project
         {
             foreach (var particle in particles)
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                                    // если здоровье кончилось
+                particle.Life -= 1; 
                 if (particle.Life < 0)
                 {
                     particle.Life = 20 + Particle.rand.Next(100);
@@ -49,10 +40,24 @@ namespace Project
                 }
                 else
                 {
-                    // а это наш старый код
+                   
                     var directionInRadians = particle.Direction / 180 * Math.PI;
                     particle.X += (float)(particle.Speed * Math.Cos(directionInRadians));
                     particle.Y -= (float)(particle.Speed * Math.Sin(directionInRadians));
+                }
+            }
+            for (var i = 0; i < 10; ++i)
+            {
+                if (particles.Count < 500) // пока частиц меньше 500 генерируем новые
+                {
+                    var particle = new Particle();
+                    particle.X = MousePositionX;
+                    particle.Y = MousePositionY;
+                    particles.Add(particle);
+                }
+                else
+                {
+                    break; // а если частиц уже 500 штук, то ничего не генерирую
                 }
             }
         }
